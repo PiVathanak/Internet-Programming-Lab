@@ -10,10 +10,10 @@ declare module "vue-router" {
 
 export const routes = [
   { path: "/", name: "events", component: EventsPage,},
-  {path: "/events/new", name: "event-new", component: import("../pages/NewEventPage.vue"), meta: { organiserOnly: true }},
-  {path: "/events/:id(\\d+)", name: "event-detail", component: import("../pages/EventDetailPage.vue"), props: true},
-  {path: "/mybookings", name: "my-bookings", component: import("../pages/MyBookingsPage.vue"), props: true},
-  {path: "/:pathMatch(.*)*", name: "not-found", component: import("../pages/NotFoundPage.vue")},
+  {path: "/events/new", name: "event-new", component: () => import("../pages/NewEventPage.vue"), meta: { organiserOnly: true }},
+  {path: "/events/:id(\\d+)", name: "event-detail", component: () => import("../pages/EventDetailPage.vue"), props: true},
+  {path: "/mybookings", name: "my-bookings", component: () => import("../pages/MyBookingsPage.vue"), props: true},
+  {path: "/:pathMatch(.*)*", name: "not-found", component: () => import("../pages/NotFoundPage.vue")},
   // TODO A1: add these routes. Lazy-load each page: component: () => import("../pages/....vue")
   //   /events/new    name "event-new"     NewEventPage      meta: { organiserOnly: true }
   //   /events/:id    name "event-detail"  EventDetailPage   props: true, and only digits: ":id(\\d+)"
