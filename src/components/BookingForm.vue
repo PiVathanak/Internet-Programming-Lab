@@ -19,12 +19,15 @@ const form = reactive<BookingInput>({
 const submitted = ref(false);
 const errors = computed(() => validateBooking(form, props.seatsLeft));
 function onSubmit() {
-  void [computed, reactive, ref, hasErrors, validateBooking, props, emit];
+  submitted.value = true;
   if(hasErrors(errors.value)) {
     return;
   }
-  submitted.value = true;
-  
+  emit("submit", {
+    name: form.name.trim(),
+    email: form.email.trim(),
+    seats: form.seats,
+  });
 }
 </script>
 

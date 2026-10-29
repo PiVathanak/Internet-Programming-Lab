@@ -13,8 +13,7 @@ export const useEventsStore = defineStore("events", () => {
 
   // getters
   // TODO B1: byId should return a function (id: number) => the event with that id, or undefined
-  const byID = computed(() => (_id: number) => events.value.find(e => e.id === _id));
-  const byId = computed(() => (_id: number): CampusEvent | undefined => undefined);
+const byId = computed(() => (id: number): CampusEvent | undefined => events.value.find(e => e.id === id));
 
   // actions
   // TODO B2: load all events with eventsApi.list().

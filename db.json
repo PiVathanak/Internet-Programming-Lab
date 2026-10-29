@@ -59,17 +59,8 @@
       "capacity": 80,
       "booked": 79,
       "description": "Alumni talk about their first jobs and internships."
-    },
-    {
-      "title": "Vathanak",
-      "category": "talk",
-      "startsAt": "2026-10-29T03:31:00.000Z",
-      "location": "Phnom Penh",
-      "capacity": 30,
-      "description": "",
-      "booked": 0,
-      "id": 7
     }
+    
   ],
   "bookings": []
 }

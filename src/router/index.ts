@@ -12,7 +12,7 @@ export const routes = [
   { path: "/", name: "events", component: EventsPage,},
   {path: "/events/new", name: "event-new", component: () => import("../pages/NewEventPage.vue"), meta: { organiserOnly: true }},
   {path: "/events/:id(\\d+)", name: "event-detail", component: () => import("../pages/EventDetailPage.vue"), props: true},
-  {path: "/mybookings", name: "my-bookings", component: () => import("../pages/MyBookingsPage.vue"), props: true},
+  {path: "/my-bookings", name: "my-bookings", component: () => import("../pages/MyBookingsPage.vue"), props: true},
   {path: "/:pathMatch(.*)*", name: "not-found", component: () => import("../pages/NotFoundPage.vue")},
   // TODO A1: add these routes. Lazy-load each page: component: () => import("../pages/....vue")
   //   /events/new    name "event-new"     NewEventPage      meta: { organiserOnly: true }
@@ -28,11 +28,13 @@ export function makeRouter(history: RouterHistory = createWebHistory()) {
   // If the route has meta.organiserOnly and the session is not an organiser,
   // redirect to { name: "events", query: { denied: "1" } }.
   router.beforeEach(to =>{
-    const sessionStore = useSessionStore();
-    if(to.meta.organiserOnly && !sessionStore.isOrganiser){
-      return { name: "events", query: { denied: "1" } };
+    if (to.meta.organiserOnly) {
+      const sessionStore = useSessionStore();
+      if (!sessionStore.isOrganiser) {
+        return { name: "events", query: { denied: "1" } };
+      }
     }
-  }) // remove this line when you use the store
+  }) 
 
   return router;
 }
