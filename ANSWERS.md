@@ -43,7 +43,7 @@ Without whitelist: true, the extra property "booked": 50 would pass into the con
 
 With whitelist: true but without forbidNonWhitelisted: true, NestJS would silently strip booked from the incoming payload, but the request itself would succeed without an error.
 
-5. Architectural Placement of the "Not Enough Seats" Rule
+5. Why is the “not enough seats” rule in BookingsService and not in BookingsController or only in the Vue form?
 
 The seat availability validation belongs in BookingsService rather than the controller or frontend form due to core software architecture principles:
 
