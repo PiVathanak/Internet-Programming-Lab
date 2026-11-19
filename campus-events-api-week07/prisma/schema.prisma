@@ -1,0 +1,51 @@
+// The database design for Campus Events.
+// After changing this file run: npx prisma migrate dev --name <what-changed>
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Category {
+  talk
+  workshop
+  social
+  sport
+}
+
+model Event {
+  id          Int       @id @default(autoincrement())
+  title       String    @db.VarChar(100)
+  category    Category
+  startsAt    DateTime
+  location    String    @db.VarChar(100)
+  capacity    Int
+  booked      Int       @default(0)
+  description String    @default("") @db.VarChar(500)
+  createdAt   DateTime  @default(now())
+  bookings    Booking[] // TODO A: uncomment once the Booking model exists
+
+  @@index([startsAt])
+}
+
+// TODO A: add the Booking model, then run: npx prisma migrate dev --name init
+// Fields: id (auto-increment), name (up to 100 chars), email, seats,
+// createdAt (defaults to now), and eventId with a relation to Event.
+// When an event is deleted, its bookings must be deleted too (onDelete: Cascade).
+// Add an index on eventId, like the one on Event.startsAt.
+// Then uncomment the bookings line in Event: it is the other side of the relation.
+model Booking {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(100)
+  email     String   @db.VarChar(100)
+  seats     Int
+  createdAt DateTime @default(now())
+  eventId   Int
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@index([eventId])
+}
